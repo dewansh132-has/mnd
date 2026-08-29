@@ -152,10 +152,95 @@ body {
   gap: 0.5rem;
 }
 
+
+/* --- Recommended adjustments to make news cards smaller --- */
+/* Replace the fixed-height rule with a responsive aspect-ratio approach */
+
+
+/* Grid: allow narrower cards */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* was 320px */
+  gap: 1rem; /* slightly tighter gap */
+}
+
+/* News Card: slightly less internal spacing */
+.news-card {
+  padding: 0; /* keep outer card compact, body has padding */
+}
+
+/* Image: lower min-height so cards are shorter */
+.news-card-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 300px; /* was 200px */
+  object-fit: cover;
+  background-color: #e9ecef;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.news-card-source, .news-card-date {
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
+/* Body: reduce padding and font sizes */
+.news-card-body {
+  padding: 1.75rem; /* was 1.25rem */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
+
+.news-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+
+.news-card-title {
+  font-size: 1.25rem; /* was 1.05rem */
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.25;
+}
+
+
+.news-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+.news-card-summary {
+  font-size: 1rem; /* was 0.9rem */
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+
+.news-card-readmore {
+  font-size: 0.95rem;
+  color: var(--accent-navy);
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: text-decoration 0.2s;
 }
 
 /* News Card */
@@ -185,81 +270,7 @@ body {
 }
 
 
-/* Replace the fixed-height rule with a responsive aspect-ratio approach */
-.news-card-image {
-  width: 100%;
-  aspect-ratio: 16 / 9;   /* scales with card width */
-  min-height: 200px;      /* don't let it get too small on tiny cards */
-  object-fit: cover;
-  background-color: #e9ecef;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-
-
-.news-card-body {
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.news-card-title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 0.5rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.3;
-}
-
-.news-card-summary {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  flex: 1;
-}
-
-.news-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-}
-
-.news-card-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.news-card-source, .news-card-date {
-  font-size: 0.75rem;
-  color: var(--text-light);
-}
-
-.news-card-readmore {
-  font-size: 0.875rem;
-  color: var(--accent-navy);
-  font-weight: 500;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  transition: text-decoration 0.2s;
-}
-
-.news-card-readmore:hover {
-  text-decoration: underline;
-}
+/
 
 /* Loading State */
 .loading-container {
@@ -380,7 +391,27 @@ body {
   margin-bottom: 0.5rem;
 }
 
+/* Skeleton: keep consistent with new image heights */
+.skeleton-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  min-height: 300px; /* was 380px */
+}
 
+/* Mobile adjustments (smaller cards on mobile) */
+@media (max-width: 768px) {
+  .news-card-image {
+    aspect-ratio: 4 / 3;
+    min-height: 140px; /* was 160px */
+  }
+  .skeleton-card {
+    min-height: 180px; /* was 220px */
+  }
+}
 /* Lower the image height on smaller screens to avoid huge cards on mobile */
 @media (max-width: 768px) {
   .news-card-image {
