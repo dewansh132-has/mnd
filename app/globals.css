@@ -184,13 +184,18 @@ body {
   box-shadow: var(--shadow-hover);
 }
 
+
+/* Replace the fixed-height rule with a responsive aspect-ratio approach */
 .news-card-image {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 16 / 9;   /* scales with card width */
+  min-height: 200px;      /* don't let it get too small on tiny cards */
   object-fit: cover;
   background-color: #e9ecef;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
+
+
 
 .news-card-body {
   padding: 1.25rem;
@@ -277,7 +282,7 @@ body {
   height: 10px;
   background-color: var(--accent-navy);
   border-radius: 50%;
-  animation: bounce 1.4s infinite ease-in-out both;
+  animation: bounce 2s infinite ease-in-out both;
 }
 
 .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
@@ -289,14 +294,17 @@ body {
 }
 
 /* Skeleton Card */
+/* Make skeleton match the same aspect ratio so loading UI feels consistent */
 .skeleton-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 12px;
-  height: 380px;
   position: relative;
   overflow: hidden;
+  aspect-ratio: 16 / 9;
+  min-height: 380px; /* adjust to taste (380 was original skeleton height) */
 }
+
 
 .skeleton-card::after {
   content: "";
@@ -372,24 +380,17 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Responsive */
+
+/* Lower the image height on smaller screens to avoid huge cards on mobile */
 @media (max-width: 768px) {
-  .header {
-    padding: 1rem;
+  .news-card-image {
+    aspect-ratio: 4 / 3;
+    min-height: 160px;
   }
-  .header-inner {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-  .news-grid {
-    grid-template-columns: 1fr;
-  }
-  .category-section {
-    padding: 0 1rem;
+  .skeleton-card {
+    min-height: 220px;
   }
 }
-
 @media (max-width: 480px) {
   .brand-logo { font-size: 1.5rem; }
   .category-heading { font-size: 1.15rem; }
